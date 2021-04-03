@@ -1,0 +1,50 @@
+/* .navbar-fixed-top--scrolled {
+  background-color: red;
+} */
+/* 
+@media screen and (max-width: 600px) {
+  .navtext {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 3000px) {
+  .sidebar {
+    display: none;
+  }
+}
+@media screen and (max-width: 600px) {
+  .sidebar {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .image_move {
+    margin-left: 30px;
+  }
+} */
+
+.my_nav {
+  background-color: #0a1885;
+
+  color: white;
+}
+
+.your_nav {
+  background-color: white;
+  color: black;
+  box-shadow: 3px 3px 10px -3px gray;
+}
+
+@media screen and (max-width: 600px) {
+  .navtext {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .image_move {
+    margin-left: 10px;
+  }
+}
