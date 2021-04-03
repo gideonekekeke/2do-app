@@ -27,7 +27,7 @@ function HomeScreen() {
 
     if (gotTask) {
       await db
-        .doc()
+        .doc(gotTask.uid)
         .collection("todolist")
         .orderBy("time", "desc")
 
@@ -84,7 +84,7 @@ function HomeScreen() {
           <ReactCalendar />
         </div>
         <div style={{ marginTop: "40px" }}>All Todos</div>
-        {getTask.map(({ id, task, createdAt, postedBy }) => (
+        {getTask.map(({ id, task }) => (
           <div key={id} className="todo_back">
             <div className="todo_holder">
               <div
@@ -157,7 +157,7 @@ function HomeScreen() {
                     style={{ color: "#840A60", fontSize: "17px" }}
                   />
                 </div>
-                {/* <div
+                <div
                   style={{
                     height: "20px",
                     width: "40px",
@@ -168,13 +168,8 @@ function HomeScreen() {
                     alignItems: "center",
                   }}
                 >
-                  <DeleteOutlined
-                    onClick={() => {
-                      removingTask(postedBy);
-                    }}
-                    style={{ color: "red", fontSize: "17px" }}
-                  />
-                </div> */}
+                  <DeleteOutlined style={{ color: "red", fontSize: "17px" }} />
+                </div>
               </div>
             </div>
           </div>
