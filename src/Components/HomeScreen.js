@@ -16,38 +16,38 @@ import AddingTodo from "./AddingTodo";
 
 import DeletePage from "./DeletePage";
 const db = app.firestore().collection("todo");
-const listing = app.firestore().collection("todolist");
 
 function HomeScreen() {
-  // const { current, Delect_user } = useContext(GlobalContext);
-  const [getTask, setGetTask] = useState([]);
+  const [data, setData] = useState([]);
 
-  const gettingTask = async () => {
-    const gotTask = await app.auth().currentUser;
+  const gettingData = async () => {
+    const getting = await app.auth().currentUser;
 
-    if (gotTask) {
+    if (getting) {
       await db
-        .doc(gotTask.uid)
+        .doc(getting.uid)
         .collection("todolist")
-        .orderBy("time", "desc")
-
-        .onSnapshot((snap) => {
-          const item = [];
-          snap.forEach((doc) => {
-            item.push(doc.data());
+        .onSnapshot((snapshot) => {
+          const i = [];
+          snapshot.forEach((doc) => {
+            i.push({ ...doc.data(), id: doc.id });
           });
-          setGetTask(item);
+          setData(i);
         });
     }
   };
 
-  const removingTask = (id) => {
-    listing.doc(id).delete();
+  const removeTask = async (id) => {
+    const removing = await app.auth().currentUser;
+
+    if (removing) {
+      await db.doc(removing.uid).collection("todolist").doc(id).delete();
+    }
   };
 
   useEffect(() => {
-    gettingTask();
-  }, []);
+    gettingData();
+  }, [data]);
   return (
     <>
       <div className="thefirsPart">
@@ -84,8 +84,8 @@ function HomeScreen() {
           <ReactCalendar />
         </div>
         <div style={{ marginTop: "40px" }}>All Todos</div>
-        {getTask.map(({ id, task }) => (
-          <div key={id} className="todo_back">
+        {data.map(({ id, task }) => (
+          <div className="todo_back">
             <div className="todo_holder">
               <div
                 style={{
@@ -120,9 +120,9 @@ function HomeScreen() {
                   }}
                 >
                   {/* <img
-                    src={pic}
-                    style={{ heigth: "100%", width: "100%", objectFit: "cover" }}
-                  /> */}
+                  src={pic}
+                  style={{ heigth: "100%", width: "100%", objectFit: "cover" }}
+                /> */}
 
                   <ProfileOutlined
                     style={{
@@ -168,7 +168,12 @@ function HomeScreen() {
                     alignItems: "center",
                   }}
                 >
-                  <DeleteOutlined style={{ color: "red", fontSize: "17px" }} />
+                  <DeleteOutlined
+                    onClick={() => {
+                      removeTask(id);
+                    }}
+                    style={{ color: "red", fontSize: "17px" }}
+                  />
                 </div>
               </div>
             </div>
