@@ -65,6 +65,7 @@ function AddingTodo() {
         createdAt: new Date().toLocaleString(),
         time: new Date().toString(),
       });
+      setTask("");
     }
   };
 
@@ -132,7 +133,7 @@ function AddingTodo() {
               <button
                 onClick={() => {
                   addTodo();
-                  handleClose();
+                  // handleClose();
                 }}
               >
                 Add Now

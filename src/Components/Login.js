@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 import { useHistory } from "react-router";
 import SignUp from "./Signup";
-const db = app.firestore().collection("securityUser");
+const db = app.firestore().collection("todo");
 function Login() {
   const hist = useHistory();
   const [email, setEmail] = useState("");
